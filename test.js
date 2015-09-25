@@ -1,0 +1,25 @@
+var robot = require('robotjs');
+
+var spotlightButtonCoords = {x: 1215, y: 9};
+//console.log(process.argv);
+var searchBarCoords = {x: 400, y: 207};
+//robot.moveMouse(spotlightButtonCoords.x, spotlightButtonCoords.y);
+//robot.mouseClick();
+//robot.moveMouse(searchBarCoords.x, searchBarCoords.y);
+//robot.mouseClick();
+robot.typeString('cd ~/Desktop/fullStackAcademy/SeniorProjects');
+robot.keyTap('enter');
+robot.typeString('mkdir ' + process.argv[2]);
+robot.keyTap('enter');
+robot.typeString('cd ' + process.argv[2]);
+robot.keyTap('enter');
+robot.typeString('fsg');
+robot.keyTap('enter');
+robot.typeString('npm install');
+robot.keyTap('enter');
+robot.typeString('git init');
+robot.keyTap('enter');
+robot.typeString('git add -A');
+robot.keyTap('enter');
+robot.typeString('git commit -m "Initial Commit"');
+robot.keyTap('enter');

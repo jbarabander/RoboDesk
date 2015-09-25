@@ -1,0 +1,10 @@
+{
+  "main": "index.html",
+  "name": "robo-desk",
+  "version": "1.0.0",
+  "description": "a desktop app for automating your tasks.",
+  "dependencies": {
+    "keypress": "^0.2.1",
+    "robotjs": "^0.2.4"
+  }
+}
