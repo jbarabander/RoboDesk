@@ -3,7 +3,8 @@ app.directive('addMacro', function() {
         restrict: 'E',
         templateUrl: 'browser/js/directives/add-macro/add-macro.html',
         scope: {
-            steps: "="
+            shortcut: "=",
+            steps: "=",
         },
         link: function(scope, element, attributes) {
             scope.choicesWithOptions = {click: ['right', 'left'], itunes: ['play', 'stop']};
@@ -19,7 +20,7 @@ app.directive('addMacro', function() {
                     if (numOfPluses === 0) {
                         if (event.which === 17) $(this).val($(this).val() + 'ctrl+');
                         else if(event.which === 18) $(this).val($(this).val() + 'alt+');
-                        else if(event.which === 16) $(this).val($(this).val() + 'shift+');
+                        //else if(event.which === 16) $(this).val($(this).val() + 'shift+');
                         else if(event.which === 8)  $(this).val('');
                         else return false;
                     }
@@ -32,7 +33,7 @@ app.directive('addMacro', function() {
                 });
 
             scope.addStep = function() {
-                scope.steps.push({name: null, option: null, action: null});
+                scope.steps.push({name: null, action: null});
             };
             scope.showOptions = function() {
                 scope.showChoices = true;

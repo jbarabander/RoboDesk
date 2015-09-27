@@ -1,0 +1,7 @@
+<h2>Load Macro Set</h2>
+<form ng-submit="">
+    <select ng-model="macroSetSelection">
+        <option ng-repeat="macroSet in macroSets" ng-value="macroSet._id">{{macroSet.name}}</option>
+    </select>
+    <button type="submit" class="btn btn-info">Load</button>
+</form>
