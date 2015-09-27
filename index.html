@@ -2,57 +2,51 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css"/>
-    <title>Command Center</title>
+    <script src="node_modules/angular/angular.js"></script>
+
+    <script src="node_modules/angular-ui-router/build/angular-ui-router.js"></script>
+    <script src="app.js"></script>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="browser/js/directives/add-macro/add-macro.js"></script>
+    <script src="browser/js/add-macro/add-macro.js"></script>
+    <script src="browser/js/home/home.js"></script>
+    <script src="browser/factories/macro.js"></script>
+    <script src="browser/factories/set.js"></script>
+    <script>
+        var models = require('./db/index.js');
+    </script>
+    <script>
+        var robot = require('robotjs');
+        var gui = require('nw.gui');
+    </script>
+    <!--<script>-->
+        <!--var menu = new gui.Menu({type: 'menubar'});-->
+        <!--menu.append(new gui.MenuItem({label: 'custom1'}));-->
+        <!--menu.append(new gui.MenuItem({label: 'custom menu 2'}));-->
+        <!--menu.createMacBuiltin('Sample');-->
+        <!--gui.Window.get().menu = menu;-->
+    <!--</script>-->
+    <title>RoboDesk</title>
 </head>
 <body>
-<div class="macro-container container">
-    <div>
-        <h3>Title: <input type="text" class="form-control"/></h3>
-        <hr/>
+<div ng-app="RoboDesk">
+    <div class="navbar navbar-default container-fluid">
+        <ul class="nav navbar-nav nav-pills">
+            <li>
+                <a ui-sref="home">Home</a>
+            </li>
+            <li>
+                <a ui-sref="addMacro">Create New Macro</a>
+            </li>
+            <li>
+                <a ui-sref="addSet">Create New Set</a>
+            </li>
+            <li>
+                <a ui-sref="mount">Mount Set</a>
+            </li>
+        </ul>
     </div>
-    <div class="row">
-        <div class="col-xs-6">
-            <h4>Keyboard Shortcut:</h4>
-            <input type="text" id='keyboard-shortcut' class="form-control shortcut"/>
-        </div>
-        <div class="col-xs-6" class="steps">
-            <h4>Commands</h4>
-            <input type="text" class="form-control form-inline"/>
-            <span class="glyphicon glyphicon-plus"></span>
-        </div>
-    </div>
-
+    <ui-view></ui-view>
 </div>
-<script src="presupplied/jquery.js"></script>
-<script>
-    var fs = require('fs');
-    var robot = require('robotjs');
-    var gui = require('nw.gui');
-</script>
-<script>
-    $('#keyboard-shortcut').on('keydown', function (event) {
-        var numOfPluses;
-        console.log(event.which);
-        if ($(this).val() === '') numOfPluses = 0;
-        else numOfPluses = $(this).val().match(/\+/g) ? $(this).val().match(/\+/g).length : 0;
-        if (numOfPluses === 0) {
-            if (event.which === 17) $(this).val($(this).val() + 'ctrl+');
-            else if(event.which === 18) $(this).val($(this).val() + 'alt+');
-            else if(event.which === 16) $(this).val($(this).val() + 'shift+');
-            else if(event.which === 8)  $(this).val('');
-            else return false;
-        }
-        else {
-            var arr = $(this).val().split('+');
-            arr.splice(0,1);
-            arr = arr.join('');
-            console.log(arr);
-            if(arr.length > 1 && event.which !== 8) return false;
-        }
-    })
-
-</script>
-
-<!--<script src="terminal.js"></script>-->
 </body>
 </html>

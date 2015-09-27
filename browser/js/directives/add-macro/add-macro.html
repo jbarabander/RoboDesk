@@ -1,0 +1,52 @@
+<div class="macro-container container">
+    <div class="row">
+        <div class="col-xs-6">
+            <h4>Keyboard Shortcut:</h4>
+            <input type="text" id='keyboard-shortcut' class="form-control"/>
+        </div>
+        <div class="col-xs-6 steps">
+            <h4>Commands</h4>
+            <div class="step" ng-repeat="step in steps track by $index">
+                <h5>Type</h5>
+                <select name="stepName" ng-model="step.name">
+                    <option ng-repeat="category in actionCategories">{{category}}</option>
+                </select>
+                <select name="stepOptions" ng-show="!!choicesWithOptions[step.name]" ng-model="step.option" ng-options="options as options for options in choicesWithOptions[step.name]"></select>
+                <span><button class="btn btn-danger" ng-click="removeStep($index)">Remove</button></span>
+                <h5>Action</h5>
+                <div ng-show="step.name==='click'">
+                    <h6>Number Of Clicks</h6>
+                    <input type="number" class="form-control form-inline" ng-model="step.action" min="0"/>
+                </div>
+                <div ng-show="step.name==='keyboard'">
+                    <h6>String to Type</h6>
+                    <input type="text" class="form-control form-inline" ng-show="step.name==='keyboard'" ng-model="step.action"/>
+                </div>
+                <div ng-show="step.name==='enter'">
+                    <h6>Number of Presses</h6>
+                    <input type="number" class="form-control form-inline" ng-model="step.action" min="0"/>
+                </div>
+                <div ng-show="step.name==='itunes'">
+                    <h6>Song</h6>
+                    <input type="number" class="form-control form-inline" ng-model="step.action" min='0'/>
+                </div>
+                <div ng-show="step.name==='chrome'">
+                    <h6>Open a Webpage</h6>
+                    <input type="text" class="form-control form-inline" ng-model="step.action"/>
+                </div>
+                <div ng-show="step.name==='file'">
+                    <h6>Open a file</h6>
+                    <input type="text" class="form-control form-inline" ng-model="step.action"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-offset-11 col-xs-1">
+                <button class="btn btn-default add-new pull-right" ng-click="addStep()">
+                    Add New
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+l
