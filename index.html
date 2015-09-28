@@ -13,12 +13,25 @@
     <script src="browser/js/factories/macro.js"></script>
     <script src="browser/js/factories/set.js"></script>
     <script src="browser/js/load-macro-set/load-macro-set.js"></script>
+    <script src="browser/js/directives/fileread/fileread.js"></script>
     <script>
         var models = require('./db/index.js');
     </script>
     <script>
         var robot = require('robotjs');
         var gui = require('nw.gui');
+    </script>
+    <script>
+        function chooseFile(name) {
+            var chooser = $(name);
+            chooser.unbind('change');
+            chooser.change(function(evt) {
+                console.log($(this).val());
+            });
+
+            chooser.trigger('click');
+        }
+        chooseFile('#fileDialog');
     </script>
     <!--<script>-->
         <!--var menu = new gui.Menu({type: 'menubar'});-->
