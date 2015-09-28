@@ -15,7 +15,7 @@ app.config(function($stateProvider) {
 app.controller('AddMacroController', function($scope, MacroFactory, macroSets, $state) {
     $scope.macroCollections = macroSets;
     $scope.macro = {
-        steps: [{name: null, action: null}],
+        steps: [{name: null}],
         shortcut: null
     }
     $scope.createMacro = function() {
