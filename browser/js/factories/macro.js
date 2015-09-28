@@ -23,18 +23,18 @@ app.factory('MacroFactory', function() {
     function stepEval(step) {
         console.log(step.action);
         if(step.name === 'keyboard') {
-            return delay(800, function() {
+            return delay(2000, function() {
                 robot.typeString(step.action)
             });
         }
         else if(step.name === 'keytap') {
-            var chainedVal = delay(800, function() {
+            var chainedVal = delay(2000, function() {
                 robot.keyTap(step.option);
             });
             if(step.action) {
                 for(var i = 1; i < step.action; i++) {
                     chainedVal = chainedVal.then(function () {
-                        return delay(800, function(){
+                        return delay(2000, function(){
                             robot.keyTap(step.option);
                         });
                     })
@@ -43,12 +43,12 @@ app.factory('MacroFactory', function() {
             return chainedVal;
         }
         else if(step.name === 'file') {
-            return delay(500, function() {
+            return delay(2000, function() {
                 return gui.Shell.openItem(step.action);
             })
         }
         else if(step.name === 'browser') {
-            return delay(500, function() {
+            return delay(2000, function() {
                 gui.Shell.openExternal(step.action);
             })
         }
