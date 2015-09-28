@@ -9,26 +9,46 @@ app.factory('MacroFactory', function() {
     //            macroObj
     //        })
     //}
+    function stepEval(step) {
+        console.log('in step eval');
+        if(step.name === 'keyboard') robot.typeString(step.action);
+    }
     function bindMacro(macroObj) {
         var shortcutSplit = macroObj.shortcut.split('+');
-        var shortcut = shortcutSplit[0] + '+' + shortcutSplit[1].split('').join('+');
-        delete macroObj.shortcut;
+        var keyBinding = shortcutSplit.map(function(element) {
+            return element[0].toUpperCase() + element.slice(1);
+        }).join('+');
+        console.log(keyBinding);
         var option = {
-            key: shortcut,
+            key: keyBinding,
             active: function() {
-                macroObj.steps.forEach(function(element) {
+                console.log('in the active');
+                var steps = macroObj.steps;
+                steps.forEach(function(step) {
+                    console.log('hi');
+                    stepEval(step);
                 })
+            },
+            failed: function(msg) {
+                console.log(msg);
             }
-        }
-        return option;
+        };
+        var shortcut = new gui.Shortcut(option);
+        console.log(shortcut);
+        gui.App.registerGlobalHotKey(shortcut);
+        shortcut.on('active', function() {
+            console.log('this is is active');
+        })
     }
     function loadMacros(macroSetId) {
         return Macro.find({macroCollection: macroSetId});
     }
     function mountMacros(macroSetId) {
         loadMacros(macroSetId)
-        .then(function(element) {
-                console.log(element);
+        .then(function(elements) {
+                elements.forEach(function(element) {
+                    bindMacro(element);
+                });
             })
     }
     return {

@@ -1,5 +1,5 @@
 <h2>Load Macro Set</h2>
-<form ng-submit="">
+<form ng-submit="mountMacros()">
     <select ng-model="macroSetSelection">
         <option ng-repeat="macroSet in macroSets" ng-value="macroSet._id">{{macroSet.name}}</option>
     </select>

@@ -17,18 +17,19 @@ app.directive('addMacro', function() {
                     console.log(event.which);
                     if ($(this).val() === '') numOfPluses = 0;
                     else numOfPluses = $(this).val().match(/\+/g) ? $(this).val().match(/\+/g).length : 0;
-                    if (numOfPluses === 0) {
+                    console.log(numOfPluses);
+                    if ((numOfPluses === 1) || (numOfPluses === 0)) {
                         if (event.which === 17) $(this).val($(this).val() + 'ctrl+');
                         else if(event.which === 18) $(this).val($(this).val() + 'alt+');
-                        //else if(event.which === 16) $(this).val($(this).val() + 'shift+');
+                        else if(event.which === 16) $(this).val($(this).val() + 'shift+');
                         else if(event.which === 8)  $(this).val('');
                         else return false;
                     }
                     else {
                         var arr = $(this).val().split('+');
-                        arr.splice(0,1);
+                        arr.splice(0,2);
                         arr = arr.join('');
-                        if(arr.length > 1 && event.which !== 8) return false;
+                        if(arr.length >= 1 && event.which !== 8) return false;
                     }
                 });
 
