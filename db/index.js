@@ -1,11 +1,10 @@
 var mongoose = require('mongoose');
-mongoose.connect("mongodb://localhost/macros");
+mongoose.connect("mongodb://localhost/RoboDesk");
 var db = mongoose.connection;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 db.on('err', console.error.bind(console, 'mongodb connection error:'));
 
 var macroSchema = mongoose.Schema({
-    type: {type: String, required: true},
     shortcut: {type: String, required: true},
     steps: [{
         name: {type: String},
@@ -17,7 +16,7 @@ var macroSchema = mongoose.Schema({
 
 var macroCollectionSchema = mongoose.Schema({
     name: {type: String, required: true},
-    description: {type: String, required: true}
+    description: {type: String}
 });
 
 module.exports = {

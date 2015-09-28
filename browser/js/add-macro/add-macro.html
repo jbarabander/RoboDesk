@@ -1,10 +1,14 @@
 <div>
     <div>
-        <h3>Title: <input type="text" class="form-control"/></h3>
+        <h3>Macro Set:</h3>
+        <select ng-model="macro.macroCollection">
+            <option ng-value="macroCollection._id" ng-repeat="macroCollection in macroCollections">{{macroCollection.name}}</option>
+        </select>
         <hr/>
     </div>
     <form name="addMacro" ng-submit="createMacro()">
-        <add-macro steps="steps"></add-macro>
+        <add-macro steps="macro.steps" shortcut="macro.shortcut"></add-macro>
         <button type="submit" class="btn btn-success">Create Macro</button>
     </form>
+    <pre>{{macro | json}}</pre>
 </div>

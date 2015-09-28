@@ -5,15 +5,23 @@ app.config(function($stateProvider) {
             templateUrl: 'browser/js/add-macro/add-macro.html',
             controller: 'AddMacroController',
             resolve: {
-                macroCollections: function() {
-
+                macroSets: function(MacroSetFactory) {
+                    return MacroSetFactory.getMacroSets();
                 }
             }
         })
 });
 
-app.controller('AddMacroController', function($scope) {
-    $scope.steps = [{name: null, option: null, action: null}];
+app.controller('AddMacroController', function($scope, MacroFactory, macroSets, $state) {
+    $scope.macroCollections = macroSets;
+    $scope.macro = {
+        steps: [{name: null, action: null}],
+        shortcut: null
+    }
     $scope.createMacro = function() {
+        MacroFactory.createMacro($scope.macro)
+        .then(function(element) {
+                $state.go('home');
+            })
     }
 });
