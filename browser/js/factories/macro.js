@@ -1,3 +1,14 @@
+var Promise = require('bluebird');
+function delay(ms, fn) {
+    var deferred = Promise.pending();
+    setTimeout(function() {
+        fn();
+        deferred.resolve();
+    }, ms);
+    return deferred.promise;
+}
+
+
 app.factory('MacroFactory', function() {
     var Macro = models.Macro;
     function createMacro(macroObj) {
@@ -12,16 +23,20 @@ app.factory('MacroFactory', function() {
     function stepEval(step) {
         console.log(step.action);
         if(step.name === 'keyboard') {
-            robot.typeString(step.action)
+            return robot.typeString(step.action);
         }
         else if(step.name === 'keytap') {
+            var chainedVal = delay(100, function() {
+                robot.keyTap(step.option);
+            });
             if(step.action) {
-                for(var i = 0; i < step.action; i++) {
-                    robot.keyTap(step.option);
+                for(var i = 1; i < step.action; i++) {
+                    chainedVal = chainedVal.then(function () {
+                        return delay(100, function(){
+                            robot.keyTap(step.option);
+                        });
+                    })
                 }
-            }
-            else {
-                robot.keyTap(step.option)
             }
         }
         else if(step.name === 'file') {

@@ -16,7 +16,7 @@
                 <h5>Action</h5>
                 <div ng-if="step.name==='click'">
                     <h6>Number Of Clicks</h6>
-                    <input type="number" class="form-control form-inline" ng-model="step.action" min="0"/>
+                    <input type="number" class="form-control form-inline" ng-model="step.action" min="0" placeholder="1"/>
                 </div>
                 <div ng-if="step.name==='keyboard'">
                     <h6>String to Type</h6>
@@ -24,7 +24,7 @@
                 </div>
                 <div ng-if="step.name==='keytap'">
                     <h6>Number of Presses</h6>
-                    <input type="number" class="form-control form-inline" ng-model="step.action" min="0"/>
+                    <input type="number" class="form-control form-inline" ng-model="step.action" min="0" placeholder="1"/>
                 </div>
                 <div ng-if="step.name==='itunes'">
                     <h6>Song</h6>
