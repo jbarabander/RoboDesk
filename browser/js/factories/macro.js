@@ -23,29 +23,34 @@ app.factory('MacroFactory', function() {
     function stepEval(step) {
         console.log(step.action);
         if(step.name === 'keyboard') {
-            return robot.typeString(step.action);
+            return delay(800, function() {
+                robot.typeString(step.action)
+            });
         }
         else if(step.name === 'keytap') {
-            var chainedVal = delay(100, function() {
+            var chainedVal = delay(800, function() {
                 robot.keyTap(step.option);
             });
             if(step.action) {
                 for(var i = 1; i < step.action; i++) {
                     chainedVal = chainedVal.then(function () {
-                        return delay(100, function(){
+                        return delay(800, function(){
                             robot.keyTap(step.option);
                         });
                     })
                 }
             }
+            return chainedVal;
         }
         else if(step.name === 'file') {
-            gui.Shell.openItem(step.action);
+            return delay(500, function() {
+                return gui.Shell.openItem(step.action);
+            })
         }
         else if(step.name === 'browser') {
-            setTimeout(function() {
+            return delay(500, function() {
                 gui.Shell.openExternal(step.action);
-            }, 1000);
+            })
         }
 
     }
@@ -58,9 +63,13 @@ app.factory('MacroFactory', function() {
             key: keyBinding,
             active: function() {
                 setTimeout(function() {
+                    var chainedStep;
                     var steps = macroObj.steps;
-                    steps.forEach(function(step) {
-                        stepEval(step);
+                    steps.forEach(function(step, index) {
+                        if(index === 0) chainedStep = stepEval(step);
+                        else chainedStep.then(function() {
+                            return stepEval(step);
+                        })
                     })
                 }, 300)
             },
